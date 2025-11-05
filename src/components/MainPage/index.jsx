@@ -7,39 +7,46 @@ import { addToCart } from "../../utils/cartUtils";
 import api from "../../config/axiosConfig";
 import AIAssistant from "../AIAssistant";
 
+const FALLBACK_IMAGE =
+  "https://via.placeholder.com/300x200.png?text=CloudMart+Product";
+
 const ProductCard = ({ product, onAddToCart }) => {
+  const name = product.name || "Unnamed product";
+  const description = product.description || "No description provided.";
+  const price = Number(product.price) || 0;
+
   const truncatedTitle =
-    product.name.length > 60 ? product.name.slice(0, 60) + "..." : product.name;
+    name.length > 60 ? name.slice(0, 60) + "..." : name;
 
   const truncatedDescription =
-    product.description.length > 195
-      ? product.description.slice(0, 195) + "..."
-      : product.description;
+    description.length > 195
+      ? description.slice(0, 195) + "..."
+      : description;
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md flex flex-col justify-between h-full">
       <div>
         <img
-          src={product.image}
-          alt={product.name}
+          src={product.image || FALLBACK_IMAGE}
+          alt={name}
           className="w-full h-48 object-contain mb-4"
         />
         <h3
           className="text-lg font-semibold overflow-hidden"
-          title={product.name}
+          title={name}
         >
           {truncatedTitle}
         </h3>
 
         <h3
           className="text-md overflow-hidden mb-2"
-          title={product.description}
+          title={description}
         >
           {truncatedDescription}
         </h3>
       </div>
       <div>
-        <p className="text-gray-600">${product.price.toFixed(2)}</p>
+        <p className="text-gray-600">${price.toFixed(2)}</p>
         <button
           onClick={() => onAddToCart(product)}
           className="mt-2 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors w-full"
@@ -61,7 +68,37 @@ const CloudMartMainPage = () => {
     const fetchProducts = async () => {
       try {
         const response = await api.get("/products");
-        setProducts(response.data);
+        let data = response.data;
+
+        if (typeof data === "string") {
+          try {
+            data = JSON.parse(data);
+          } catch (parseError) {
+            throw new Error("Received products payload is not valid JSON.");
+          }
+        }
+
+        if (!Array.isArray(data)) {
+          throw new Error("Products payload is not an array.");
+        }
+
+        const normalizedProducts = data.map((product, index) => {
+          const name = product?.name || `Product ${index + 1}`;
+          const description = product?.description || "No description provided.";
+          const price = Number(product?.price) || 0;
+          const id = product?.id || `${name}-${index}`;
+
+          return {
+            ...product,
+            id,
+            name,
+            description,
+            price,
+            image: product?.image || FALLBACK_IMAGE,
+          };
+        });
+
+        setProducts(normalizedProducts);
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch products. Please try again later.");
@@ -82,7 +119,7 @@ const CloudMartMainPage = () => {
   };
 
   const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    (product.name || "").toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

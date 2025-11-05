@@ -2,23 +2,31 @@
 
 const CART_KEY = 'cloudmart_cart';
 
+const normalizeItem = (item) => ({
+  ...item,
+  price: Number(item?.price) || 0,
+});
+
 export const getCartItems = () => {
   const cartItems = localStorage.getItem(CART_KEY);
-  return cartItems ? JSON.parse(cartItems) : [];
+  const parsedItems = cartItems ? JSON.parse(cartItems) : [];
+  return parsedItems.map(normalizeItem);
 };
 
 export const saveCartItems = (items) => {
-  localStorage.setItem(CART_KEY, JSON.stringify(items));
+  const normalizedItems = items.map(normalizeItem);
+  localStorage.setItem(CART_KEY, JSON.stringify(normalizedItems));
   window.dispatchEvent(new Event('cartUpdated'));
 };
 
 export const addToCart = (product) => {
   const cartItems = getCartItems();
-  const existingItem = cartItems.find(item => item.id === product.id);
+  const normalizedProduct = normalizeItem(product);
+  const existingItem = cartItems.find(item => item.id === normalizedProduct.id);
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
-    cartItems.push({ ...product, quantity: 1 });
+    cartItems.push({ ...normalizedProduct, quantity: 1 });
   }
   saveCartItems(cartItems);
 };
