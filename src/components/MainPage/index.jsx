@@ -15,6 +15,11 @@ const ProductCard = ({ product, onAddToCart }) => {
   const description = product.description || "No description provided.";
   const price = Number(product.price) || 0;
 
+  const handleImageError = (event) => {
+    event.currentTarget.src = FALLBACK_IMAGE;
+    event.currentTarget.onerror = null;
+  };
+
   const truncatedTitle =
     name.length > 60 ? name.slice(0, 60) + "..." : name;
 
@@ -29,6 +34,7 @@ const ProductCard = ({ product, onAddToCart }) => {
         <img
           src={product.image || FALLBACK_IMAGE}
           alt={name}
+          onError={handleImageError}
           className="w-full h-48 object-contain mb-4"
         />
         <h3
