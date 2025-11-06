@@ -6,8 +6,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import { addToCart } from "../../utils/cartUtils";
 import AIAssistant from "../AIAssistant";
 
-const FALLBACK_IMAGE =
-  "https://via.placeholder.com/300x200.png?text=CloudMart+Product";
+const FALLBACK_IMAGE = "/placeholder.svg";
 
 const ProductCard = ({ product, onAddToCart }) => {
   const name = product.name || "Unnamed product";
