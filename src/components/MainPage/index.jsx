@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Search, MessageCircle } from "lucide-react";
+import { Search } from "lucide-react";
 import Header from "../Header";
 import Footer from "../Footer";
 import LoadingSpinner from "../LoadingSpinner";
 import { addToCart } from "../../utils/cartUtils";
-import api from "../../config/axiosConfig";
 import AIAssistant from "../AIAssistant";
 
 const FALLBACK_IMAGE =
@@ -73,8 +72,15 @@ const CloudMartMainPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await api.get("/products");
-        let data = response.data;
+        const request = await fetch(import.meta.env.VITE_LIST_PRODUCTS_URL, {
+          headers: { "content-type": "application/json" },
+        });
+
+        if (!request.ok) {
+          throw new Error(`Request failed with status ${request.status}`);
+        }
+
+        let data = await request.json();
 
         if (typeof data === "string") {
           try {
@@ -107,7 +113,7 @@ const CloudMartMainPage = () => {
         setProducts(normalizedProducts);
         setLoading(false);
       } catch (err) {
-        setError("Failed to fetch products. Please try again later.");
+        setError(err?.message || "Failed to fetch products. Please try again later.");
         setLoading(false);
       }
     };
