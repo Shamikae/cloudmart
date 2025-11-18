@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.670.0",
+    "@aws-sdk/client-secrets-manager": "^3.670.0",
+    "google-auth-library": "^9.14.1",
+    "node-fetch": "^3.3.2"
+  }
+}

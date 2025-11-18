@@ -6,7 +6,8 @@ import LoadingSpinner from "../LoadingSpinner";
 import { addToCart } from "../../utils/cartUtils";
 import AIAssistant from "../AIAssistant";
 
-const FALLBACK_IMAGE = "/placeholder.svg";
+const BASE_PATH = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+const FALLBACK_IMAGE = `${BASE_PATH}/placeholder.svg`;
 
 const ProductCard = ({ product, onAddToCart }) => {
   const name = product.name || "Unnamed product";

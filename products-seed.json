@@ -6,7 +6,8 @@
           "id":         { "S": "p-001" },
           "name":       { "S": "Aurora Headphones" },
           "description":{ "S": "Wireless ANC" },
-          "price":      { "N": "129" }
+          "price":      { "N": "129" },
+          "image":      { "S": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=800&q=80" }
         }
       }
     },
@@ -16,7 +17,8 @@
           "id":         { "S": "p-002" },
           "name":       { "S": "Nebula Watch" },
           "description":{ "S": "GPS + fitness" },
-          "price":      { "N": "199" }
+          "price":      { "N": "199" },
+          "image":      { "S": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80" }
         }
       }
     },
@@ -26,7 +28,8 @@
           "id":         { "S": "p-003" },
           "name":       { "S": "Lumen Lamp" },
           "description":{ "S": "Smart desk lamp" },
-          "price":      { "N": "59" }
+          "price":      { "N": "59" },
+          "image":      { "S": "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=800&q=80" }
         }
       }
     }

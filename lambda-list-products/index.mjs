@@ -13,12 +13,21 @@ export const handler = async (event) => {
   }
   try {
     const out = await ddb.send(new ScanCommand({ TableName: TABLE, Limit: 50 }));
-    const items = (out.Items || []).map(i => ({
-      id: i.id?.S,
-      name: i.name?.S,
-      description: i.description?.S,
-      price: i.price?.N ? Number(i.price.N) : undefined
-    }));
+    const items = (out.Items || []).map((i, idx) => {
+      const id = i.id?.S;
+      const name = i.name?.S;
+      const description = i.description?.S;
+      const price = i.price?.N ? Number(i.price.N) : undefined;
+      const image = i.image?.S;
+
+      return {
+        id: id || `product-${idx + 1}`,
+        name: name || "Untitled product",
+        description: description || "",
+        price,
+        image: image || null,
+      };
+    });
     return { statusCode: 200, headers: { "content-type": "application/json" }, body: JSON.stringify(items) };
   } catch (e) {
     return { statusCode: 500, headers: { "content-type": "application/json" }, body: JSON.stringify({ error: e.message }) };
