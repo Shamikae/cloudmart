@@ -1,37 +1,23 @@
-{
-  "cloudmart-products": [
-    {
-      "PutRequest": {
-        "Item": {
-          "id":         { "S": "p-001" },
-          "name":       { "S": "Aurora Headphones" },
-          "description":{ "S": "Wireless ANC" },
-          "price":      { "N": "129" },
-          "image":      { "S": "https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=800&q=80" }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "id":         { "S": "p-002" },
-          "name":       { "S": "Nebula Watch" },
-          "description":{ "S": "GPS + fitness" },
-          "price":      { "N": "199" },
-          "image":      { "S": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80" }
-        }
-      }
-    },
-    {
-      "PutRequest": {
-        "Item": {
-          "id":         { "S": "p-003" },
-          "name":       { "S": "Lumen Lamp" },
-          "description":{ "S": "Smart desk lamp" },
-          "price":      { "N": "59" },
-          "image":      { "S": "https://images.unsplash.com/photo-1505691723518-36a5ac3be353?auto=format&fit=crop&w=800&q=80" }
-        }
-      }
-    }
-  ]
-}
+[
+  {
+    "id": "p-001",
+    "name": "Aurora Headphones",
+    "description": "Wireless ANC",
+    "price": 129,
+    "image": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/smartheadphones.png"
+  },
+  {
+    "id": "p-002",
+    "name": "Nebula Watch",
+    "description": "GPS + fitness",
+    "price": 199,
+    "image": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/SmartWatch.png"
+  },
+  {
+    "id": "p-003",
+    "name": "Lumen Lamp",
+    "description": "Smart Desk Lamp",
+    "price": 59,
+    "image": "https://assets.newatlas.com/dims4/default/5fb2a11/2147483647/strip/true/crop/1618x1079+0+1/resize/1200x800!/quality/90/?url=https%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Frichard-clarkson-floating-cloud-1.jpg"
+  }
+]
