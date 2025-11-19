@@ -8,6 +8,16 @@ import AIAssistant from "../AIAssistant";
 
 const BASE_PATH = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
 const FALLBACK_IMAGE = `${BASE_PATH}/placeholder.svg`;
+const STATIC_PRODUCT_IMAGES = [
+  "https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1511385348-a52b4a160dc2?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80",
+];
 
 const ProductCard = ({ product, onAddToCart }) => {
   const name = product.name || "Unnamed product";
@@ -99,6 +109,12 @@ const CloudMartMainPage = () => {
           const description = product?.description || "No description provided.";
           const price = Number(product?.price) || 0;
           const id = product?.id || `${name}-${index}`;
+          const staticImage =
+            STATIC_PRODUCT_IMAGES[index % STATIC_PRODUCT_IMAGES.length];
+          const image =
+            typeof product?.image === "string" && product.image.trim()
+              ? product.image.trim()
+              : staticImage;
 
           return {
             ...product,
@@ -106,7 +122,7 @@ const CloudMartMainPage = () => {
             name,
             description,
             price,
-            image: product?.image || FALLBACK_IMAGE,
+            image,
           };
         });
 

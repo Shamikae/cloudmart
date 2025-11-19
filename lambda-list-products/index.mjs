@@ -18,14 +18,19 @@ export const handler = async (event) => {
       const name = i.name?.S;
       const description = i.description?.S;
       const price = i.price?.N ? Number(i.price.N) : undefined;
-      const image = i.image?.S;
+      const image =
+        i.image?.S ||
+        i.imageUrl?.S ||
+        i.photo?.S ||
+        i.thumbnail?.S ||
+        null;
 
       return {
         id: id || `product-${idx + 1}`,
         name: name || "Untitled product",
         description: description || "",
         price,
-        image: image || null,
+        image,
       };
     });
     return { statusCode: 200, headers: { "content-type": "application/json" }, body: JSON.stringify(items) };
