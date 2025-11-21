@@ -3,3 +3,4 @@ google_credentials.json
 .env
 .env.production
 .env.local
+google_credentials.json
