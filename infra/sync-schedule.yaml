@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  EventBridge schedule that triggers the CloudMart DynamoDB->BigQuery sync Lambda
+  on a recurring cadence.
+
+Parameters:
+  SyncLambdaArn:
+    Type: String
+    Description: ARN of the lambda-sync-bq function to schedule.
+  ScheduleExpression:
+    Type: String
+    Default: rate(6 hours)
+    Description: EventBridge schedule expression for how often to run the sync.
+
+Resources:
+  CloudMartSyncSchedule:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: Triggers the CloudMart DynamoDB->BigQuery sync Lambda
+      State: ENABLED
+      ScheduleExpression: !Ref ScheduleExpression
+      Targets:
+        - Arn: !Ref SyncLambdaArn
+          Id: CloudMartSyncLambdaTarget
+
+  AllowEventBridgeInvoke:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref SyncLambdaArn
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt CloudMartSyncSchedule.Arn
+
+Outputs:
+  EventRuleArn:
+    Description: ARN of the created EventBridge rule.
+    Value: !GetAtt CloudMartSyncSchedule.Arn
