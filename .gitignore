@@ -1,5 +1,4 @@
 node_modules
-google_credentials.json
 .env
 .env.production
 .env.local
