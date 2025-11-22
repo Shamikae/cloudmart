@@ -9,13 +9,13 @@
   {
     "id": "p-002",
     "name": "Nebula Watch",
-    "description": "GPS + fitness",
+    "description": "Ai Powered Smartwatch",
     "price": 199,
     "image": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/SmartWatch.png"
   },
   {
     "id": "p-003",
-    "name": "Lumen Lamp",
+    "name": "Lume Lamp",
     "description": "Smart Desk Lamp",
     "price": 59,
     "image": "https://assets.newatlas.com/dims4/default/5fb2a11/2147483647/strip/true/crop/1618x1079+0+1/resize/1200x800!/quality/90/?url=https%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Frichard-clarkson-floating-cloud-1.jpg"
@@ -24,7 +24,7 @@
     "id": "p-004",
     "name": "ClearView Glasses",
     "description": "Smart AR Glasses",
-    "price": 289,
+    "price": 299,
     "image": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/smartglasses.png"
   }
 ]
