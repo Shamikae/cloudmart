@@ -1,0 +1,21 @@
+name: AWS Role Check
+
+on:
+  workflow_dispatch:  # lets you run it manually from the Actions tab
+
+jobs:
+  check-role:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials via role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Show caller identity
+        run: aws sts get-caller-identity
