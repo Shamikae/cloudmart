@@ -5,6 +5,9 @@ import Footer from "../Footer";
 import LoadingSpinner from "../LoadingSpinner";
 import api from "../../config/axiosConfig";
 
+const LAMBDA_URL =
+  "https://2tn3eiastpdlzwlp6mijyslizu0nblzn.lambda-url.us-east-1.on.aws/"; // list-products Lambda
+
 const Modal = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
@@ -43,7 +46,7 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
     try {
       await onSubmit({
         ...formData,
-        price: parseFloat(formData.price), // Ensure price is a number
+        price: parseFloat(formData.price),
       });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -192,7 +195,8 @@ const AdminProductsPage = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await api.get("/products");
+      // Simple GET to Lambda URL (no custom headers ➜ no preflight)
+      const response = await api.get(LAMBDA_URL);
       setProducts(response.data);
       setLoading(false);
     } catch (err) {

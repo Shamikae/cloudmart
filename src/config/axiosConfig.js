@@ -1,36 +1,36 @@
-// src/utils/axiosConfig.js
+// src/config/axiosConfig.js
 
 import axios from "axios";
 
 const instance = axios.create({
   timeout: 50000,
-  headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  },
 });
 
 // Add a request interceptor
 instance.interceptors.request.use(
   (config) => {
-    // You can add logic here to attach tokens, etc.
+    const method = (config.method || "get").toUpperCase();
+
+    // ❗ VERY IMPORTANT:
+    // Only add JSON headers to POST/PUT/DELETE
+    // Never add them to GET (avoids OPTIONS preflight)
+    if (method !== "GET") {
+      config.headers = {
+        ...(config.headers || {}),
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      };
+    }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-// Add a response interceptor
+// Response interceptor (unchanged)
 instance.interceptors.response.use(
-  (response) => {
-    // You can add logic here to handle responses
-    return response;
-  },
-  (error) => {
-    // You can add logic here to handle errors
-    return Promise.reject(error);
-  }
+  (response) => response,
+  (error) => Promise.reject(error)
 );
 
 export default instance;
