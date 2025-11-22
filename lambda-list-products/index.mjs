@@ -1,18 +1,30 @@
 import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
 
-const ddb = new DynamoDBClient({ region: process.env.AWS_REGION || "us-east-1" });
+const ddb = new DynamoDBClient({
+  region: process.env.AWS_REGION || "us-east-1",
+});
 const TABLE = process.env.PRODUCTS_TABLE || "cloudmart-products";
+const ALLOWED_ORIGIN =
+  process.env.ALLOWED_ORIGIN || "https://shamikae.com"; // tighten to the site domain by default
+const baseHeaders = {
+  "content-type": "application/json",
+  "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+  "Access-Control-Allow-Methods": "GET,OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
 
 export const handler = async (event) => {
   if (event?.requestContext?.http?.method === "OPTIONS") {
     return {
       statusCode: 204,
-      headers: { "content-type": "application/json" },
+      headers: baseHeaders,
       body: "",
     };
   }
   try {
-    const out = await ddb.send(new ScanCommand({ TableName: TABLE, Limit: 50 }));
+    const out = await ddb.send(
+      new ScanCommand({ TableName: TABLE, Limit: 50 })
+    );
     const items = (out.Items || []).map((i, idx) => {
       const id = i.id?.S;
       const name = i.name?.S;
@@ -33,8 +45,16 @@ export const handler = async (event) => {
         image,
       };
     });
-    return { statusCode: 200, headers: { "content-type": "application/json" }, body: JSON.stringify(items) };
+    return {
+      statusCode: 200,
+      headers: baseHeaders,
+      body: JSON.stringify(items),
+    };
   } catch (e) {
-    return { statusCode: 500, headers: { "content-type": "application/json" }, body: JSON.stringify({ error: e.message }) };
+    return {
+      statusCode: 500,
+      headers: baseHeaders,
+      body: JSON.stringify({ error: e.message }),
+    };
   }
 };
