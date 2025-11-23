@@ -6,6 +6,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import api from "../../config/axiosConfig";
 
 const LAMBDA_URL =
+  import.meta.env.VITE_LIST_PRODUCTS_URL ||
   "https://tzk4x5vxg7nyores35ayz5h2qm0drxig.lambda-url.us-east-1.on.aws/"; // list-products Lambda
 
 const Modal = ({ isOpen, onClose, title, children }) => {
