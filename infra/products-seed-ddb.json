@@ -3,44 +3,84 @@
     {
       "PutRequest": {
         "Item": {
-          "id": { "S": "p-001" },
-          "name": { "S": "Aurora Headphones" },
-          "description": { "S": "Wireless ANC" },
-          "price": { "N": "229" },
-          "image": { "S": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/smartheadphones.png" }
+          "id": {
+            "S": "p-001"
+          },
+          "name": {
+            "S": "Aurora Headphones"
+          },
+          "description": {
+            "S": "Wireless ANC"
+          },
+          "price": {
+            "N": "229"
+          },
+          "image": {
+            "S": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/smartheadphones.png"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "id": { "S": "p-002" },
-          "name": { "S": "Nebula Watch" },
-          "description": { "S": "Ai Powered Smartwatch" },
-          "price": { "N": "199" },
-          "image": { "S": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/SmartWatch.png" }
+          "id": {
+            "S": "p-002"
+          },
+          "name": {
+            "S": "Nebula Watch"
+          },
+          "description": {
+            "S": "Ai Powered Smartwatch"
+          },
+          "price": {
+            "N": "199"
+          },
+          "image": {
+            "S": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/SmartWatch.png"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "id": { "S": "p-003" },
-          "name": { "S": "Lume Lamp" },
-          "description": { "S": "Smart Desk Lamp" },
-          "price": { "N": "59" },
-          "image": { "S": "https://assets.newatlas.com/dims4/default/5fb2a11/2147483647/strip/true/crop/1618x1079+0+1/resize/1200x800!/quality/90/?url=https%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Frichard-clarkson-floating-cloud-1.jpg" }
+          "id": {
+            "S": "p-003"
+          },
+          "name": {
+            "S": "Lume Lamp"
+          },
+          "description": {
+            "S": "Smart Desk Lamp"
+          },
+          "price": {
+            "N": "159"
+          },
+          "image": {
+            "S": "https://assets.newatlas.com/dims4/default/5fb2a11/2147483647/strip/true/crop/1618x1079+0+1/resize/1200x800!/quality/90/?url=https%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Frichard-clarkson-floating-cloud-1.jpg"
+          }
         }
       }
     },
     {
       "PutRequest": {
         "Item": {
-          "id": { "S": "p-004" },
-          "name": { "S": "ClearView Glasses" },
-          "description": { "S": "Smart AR Glasses" },
-          "price": { "N": "299" },
-          "image": { "S": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/smartglasses.png" }
+          "id": {
+            "S": "p-004"
+          },
+          "name": {
+            "S": "ClearView Glasses"
+          },
+          "description": {
+            "S": "Smart AR Glasses"
+          },
+          "price": {
+            "N": "299"
+          },
+          "image": {
+            "S": "https://my-fantastic-websitese.s3.us-east-1.amazonaws.com/cloudmart/products/smartglasses.png"
+          }
         }
       }
     }
