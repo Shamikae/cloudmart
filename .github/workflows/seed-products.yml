@@ -1,0 +1,48 @@
+name: Seed CloudMart Products
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "data/products-seed.json"
+      - "infra/products-seed-ddb.json"
+      - ".github/workflows/seed-products.yml"
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-1
+  PRODUCTS_TABLE: cloudmart-products
+  AWS_ACCOUNT_ID: "767191120487"
+
+jobs:
+  seed-dynamodb:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Verify target AWS account
+        run: |
+          ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
+          echo "Using account: ${ACCOUNT_ID}"
+          if [ "$ACCOUNT_ID" != "${AWS_ACCOUNT_ID}" ]; then
+            echo "Expected account ${AWS_ACCOUNT_ID} but got ${ACCOUNT_ID}"
+            exit 1
+          fi
+
+      - name: Seed DynamoDB products table
+        run: |
+          aws dynamodb batch-write-item \
+            --region "${AWS_REGION}" \
+            --request-items file://infra/products-seed-ddb.json
