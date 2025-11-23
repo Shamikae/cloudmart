@@ -6,7 +6,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import api from "../../config/axiosConfig";
 
 const LAMBDA_URL =
-  "https://2tn3eiastpdlzwlp6mijyslizu0nblzn.lambda-url.us-east-1.on.aws/"; // list-products Lambda
+  "https://tzk4x5vxg7nyores35ayz5h2qm0drxig.lambda-url.us-east-1.on.aws/"; // list-products Lambda
 
 const Modal = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;

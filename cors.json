@@ -1,18 +1,9 @@
 {
-  "FunctionName": "cloudmart-list-products",
-  "AuthType": "NONE",
-  "Cors": {
-    "AllowOrigins": [
-      "https://shamikae.com",
-      "http://localhost:5173"
-    ],
-    "AllowMethods": [
-      "GET",
-      "POST",
-      "OPTIONS"
-    ],
-    "AllowHeaders": [
-      "*"
-    ]
-  }
+  "AllowOrigins": [
+    "https://shamikae.com",
+    "http://localhost:5173"
+  ],
+  "AllowMethods": ["GET"],
+  "AllowHeaders": ["*"],
+  "MaxAge": 86400
 }

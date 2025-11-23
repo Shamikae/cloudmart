@@ -1,4 +1,4 @@
-import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
+const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb");
 
 const ddb = new DynamoDBClient({
   region: process.env.AWS_REGION || "us-east-1",
@@ -13,7 +13,7 @@ const baseHeaders = {
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   if (event?.requestContext?.http?.method === "OPTIONS") {
     return {
       statusCode: 204,
